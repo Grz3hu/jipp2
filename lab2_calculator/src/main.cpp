@@ -55,8 +55,13 @@ int main(int argc, char* argv[])
 		int w=volume(atoi(argv[2]),atoi(argv[3]),atoi(argv[4]),atoi(argv[5]));
 		cout << w << endl;
 	}
+	if (strcmp(argv[1], "help") == 0)
+	{
+		print_help();
+	}
 	else
 	{
+		cerr << "Podano zły argument\n\n";
 		print_help();
 	}
 

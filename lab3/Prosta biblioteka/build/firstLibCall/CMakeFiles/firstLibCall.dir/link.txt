@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/firstLibCall.dir/main.cpp.o -o firstLibCall  -lfirstLib 

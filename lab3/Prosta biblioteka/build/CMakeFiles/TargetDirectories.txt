@@ -1,0 +1,5 @@
+/home/grzes/Documents/Politechnika_Krakowska/3semestr/Jipp2/repo/lab3/Prosta biblioteka/build/CMakeFiles/rebuild_cache.dir
+/home/grzes/Documents/Politechnika_Krakowska/3semestr/Jipp2/repo/lab3/Prosta biblioteka/build/CMakeFiles/edit_cache.dir
+/home/grzes/Documents/Politechnika_Krakowska/3semestr/Jipp2/repo/lab3/Prosta biblioteka/build/firstLibCall/CMakeFiles/rebuild_cache.dir
+/home/grzes/Documents/Politechnika_Krakowska/3semestr/Jipp2/repo/lab3/Prosta biblioteka/build/firstLibCall/CMakeFiles/edit_cache.dir
+/home/grzes/Documents/Politechnika_Krakowska/3semestr/Jipp2/repo/lab3/Prosta biblioteka/build/firstLibCall/CMakeFiles/firstLibCall.dir

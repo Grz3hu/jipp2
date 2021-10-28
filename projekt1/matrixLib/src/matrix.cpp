@@ -1,6 +1,6 @@
 #include <iostream>
-#include "matrix.h"
 #include <math.h>
+#include "matrix.h"
 
 using namespace std;
 
@@ -20,6 +20,10 @@ void printHelp()
 	cout << "help) Wyświetlenie pomocy \n";
 }
 
+/*!
+  @param w matrix height
+  @param k matrix width
+  */
 void getMatrixParams(int &w, int &k)
 {
 	cout << "Podaj wysokość macierzy: \n";

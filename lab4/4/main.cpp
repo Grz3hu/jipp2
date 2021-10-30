@@ -5,22 +5,54 @@
 using namespace std;
 
 class Prostopadloscian{
-	public:
+	private:
 		int a;
 		int b;
 		int H;
 	
+	public:
 		int pole() {
 			return a*b*H;
+		}
+
+		int getA(){
+			return a;
+		}
+
+		int getB(){
+			return b;
+		}
+
+		int getH(){
+			return H;
+		}
+		
+		void setA(int b){
+			this->b=b;
+		}
+		void setB(int b){
+			this->b=b;
+		}
+		void setH(int H){
+			this->H=H;
 		}
 };
 
 class Kula{
-	public:
+	private:
 		int R;
 
+	public:
 		double objetosc(){
 			return (4.0/3) * R * R * R * M_PI;
+		}
+
+		int getR(){
+			return R;
+		}
+
+		void setR(int R){
+			this->R=R;
 		}
 };
 
@@ -93,53 +125,51 @@ class Student{
 		{
 			return pop_odp;
 		}
-
-		string getName(){
-			return name;
+		
+		void setName(string name){
+			this->name=name;
 		}
 
-		string getLastName(){
-			return lastName;
+		void setLastName(string lastName){
+			this->lastName=lastName;
+		}
+		
+		void setNrAlbumu(int nr_al){
+			this->nr_al=nr_al;
+		}
+		
+		void setLiczbaPytan(int l_pyt){
+			this->l_pyt=l_pyt;
+		}
+		
+		void setPopOdp(int pop_odp){
+			this->pop_odp=pop_odp;
 		}
 
-		int getNrAlbumu()
-		{
-			return nr_al;
-		}
-
-		int getLiczbaPytan()
-		{
-			return l_pyt;
-		}
-
-		int getPopOdp()
-		{
-			return pop_odp;
-		}
 };
 
 int main()
 {
-	Prostopadloscian a;
-	a.a=1;
-	a.b=2;
-	a.H=4;
-	cout << a.pole() << endl;
+	/* Prostopadloscian a; */
+	/* a.a=1; */
+	/* a.b=2; */
+	/* a.H=4; */
+	/* cout << a.pole() << endl; */
 
-	Kula b;
-	b.R=2;
-	cout << b.objetosc() << endl;
+	/* Kula b; */
+	/* b.R=2; */
+	/* cout << b.objetosc() << endl; */
 
-	FunkcjaKwadratowa c;
-	c.a=3;
-	c.b=4;
-	c.c=5;
-	c.wyswietl();
+	/* FunkcjaKwadratowa c; */
+	/* c.a=3; */
+	/* c.b=4; */
+	/* c.c=5; */
+	/* c.wyswietl(); */
 
-	Student d;
-	d.l_pyt= 20;
-	d.pop_odp= 5;
-	cout << d.ile_proc() << endl;
+	/* Student d; */
+	/* d.l_pyt= 20; */
+	/* d.pop_odp= 5; */
+	/* cout << d.ile_proc() << endl; */
 
 	return 0;
 }

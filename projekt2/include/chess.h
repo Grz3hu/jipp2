@@ -55,57 +55,15 @@ class Piece : public Point
         bool state=ALIVE;
         std::string symbol=" ";
         Figure figureType;
+        unsigned long long int moves=0;
     public:
-        Piece(int XCord, int YCord, bool color) : Point(XCord,YCord), color(color) {};
+        Piece(int XCord, int YCord, bool color, Figure figureType);
         bool getColor();
         bool getState();
         void setColor(bool color);
         void setState(bool state);
         std::string getSymbol(); 
-};
-
-class Pawn : public Piece
-{
-    private:
-        unsigned long long int moves=0;
-    public:
-        Pawn(int XCord, int YCord, bool color);
-        bool isMoveValid(Board& gameboard, Point newPosVect);
-};
-
-class Rook : public Piece
-{
-    public:
-        Rook(int XCord, int YCord, bool color);
-        bool isMoveValid(Board& gameboard, Point newPosVect);
-};
-
-class Knight : public Piece
-{
-    public:
-        Knight(int XCord, int YCord, bool color);
-        bool isMoveValid(Board& gameboard, Point newPosVect);
-};
-
-class Bishop : public Piece
-{
-    public:
-        Bishop(int XCord, int YCord, bool color);
-        bool isMoveValid(Board& gameboard, Point newPosVect);
-};
-
-class King : public Piece
-{
-    public:
-        King(int XCord, int YCord, bool color);
-        bool isMoveValid(Board& gameboard, Point newPosVect);
-};
-
-class Queen : public Piece
-{
-    public:
-        Queen(int XCord, int YCord, bool color);
-        bool isMoveValid(Board& gameboard, Point newPosVect);
+        bool isMoveValid(Board &gameboard, Point newPosVect);
 };
 
 class Board
@@ -121,12 +79,7 @@ class Board
         bool isMoveVaild(Point pos,bool color);
         void move(Point src, Point dest);
 
-    friend class Pawn;
-    friend class Rook;
-    friend class Knight;
-    friend class Bishop;
-    friend class King;
-    friend class Queen;
+    friend class Piece;
 };
 
 #endif

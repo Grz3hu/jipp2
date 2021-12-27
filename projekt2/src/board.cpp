@@ -18,35 +18,35 @@ Board::Board()
     //spawn pawns
     for (int i = a; i <= h; i++)
     {
-        chessboard[1][i] = new Pawn(i, 1, WHITE);
-        chessboard[6][i] = new Pawn(i, 6, BLACK);
+        chessboard[1][i] = new Piece(i, 1, WHITE, PAWN);
+        chessboard[6][i] = new Piece(i, 6, BLACK, PAWN);
     }
 
     //spawn rooks
-    chessboard[7][a] = new Rook(a, 7, BLACK);
-    chessboard[7][h] = new Rook(h, 7, BLACK);
-    chessboard[0][a] = new Rook(a, 7, WHITE);
-    chessboard[0][h] = new Rook(h, 7, WHITE);
+    chessboard[7][a] = new Piece(a, 7, BLACK, ROOK);
+    chessboard[7][h] = new Piece(h, 7, BLACK, ROOK);
+    chessboard[0][a] = new Piece(a, 7, WHITE, ROOK);
+    chessboard[0][h] = new Piece(h, 7, WHITE, ROOK);
 
     //spawn knights
-    chessboard[7][b] = new Knight(b, 7, BLACK);
-    chessboard[7][g] = new Knight(g, 7, BLACK);
-    chessboard[0][b] = new Knight(b, 7, WHITE);
-    chessboard[0][g] = new Knight(g, 7, WHITE);
+    chessboard[7][b] = new Piece(b, 7, BLACK, KNIGHT);
+    chessboard[7][g] = new Piece(g, 7, BLACK, KNIGHT);
+    chessboard[0][b] = new Piece(b, 7, WHITE, KNIGHT);
+    chessboard[0][g] = new Piece(g, 7, WHITE, KNIGHT);
 
     //spawn bishops
-    chessboard[7][c] = new Bishop(c, 7, BLACK);
-    chessboard[7][f] = new Bishop(f, 7, BLACK);
-    chessboard[0][c] = new Bishop(c, 7, WHITE);
-    chessboard[0][f] = new Bishop(f, 7, WHITE);
+    chessboard[7][c] = new Piece(c, 7, BLACK, BISHOP);
+    chessboard[7][f] = new Piece(f, 7, BLACK, BISHOP);
+    chessboard[0][c] = new Piece(c, 7, WHITE, BISHOP);
+    chessboard[0][f] = new Piece(f, 7, WHITE, BISHOP);
 
     //spawn queens
-    chessboard[7][d] = new Queen(d, 7, BLACK);
-    chessboard[0][d] = new Queen(d, 0, WHITE);
+    chessboard[7][d] = new Piece(d, 7, BLACK, QUEEN);
+    chessboard[0][d] = new Piece(d, 0, WHITE, QUEEN);
 
     //spawn kings
-    chessboard[7][e] = new King(e, 7, BLACK);
-    chessboard[0][e] = new King(e, 0, WHITE);
+    chessboard[7][e] = new Piece(e, 7, BLACK, KING);
+    chessboard[0][e] = new Piece(e, 0, WHITE, KING);
 };
 
 Board::~Board()

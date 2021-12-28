@@ -1,6 +1,5 @@
 #ifndef CHESS_H
 #define CHESS_H
-
 #include <iostream>
 #include <string>
 
@@ -40,7 +39,7 @@ class Point
     protected:
         int Xcord;/**< variable holding X position coordinate */
         int Ycord;/**< variable holding Y position coordinate */ 
-public:
+    public:
         /*
         * Default constructor
         */

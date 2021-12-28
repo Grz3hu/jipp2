@@ -80,28 +80,46 @@ bool Piece::isMoveValid(Board &gameboard, Point oldPos, Point newPosVect)
         if (this->color == WHITE)
         {
             if ((newPosVect.getXCord() == -1 || newPosVect.getXCord() == 1) && newPosVect.getYCord() == 1 && gameboard.chessboard[newPosY][newPosX]->getColor() == BLACK)
+            {
+                moves++;
                 return true;
+            }
 
             if (moves == 0 && newPosVect.getXCord() == 0 && newPosVect.getYCord() == 2 && gameboard.chessboard[newPosY][newPosX] == nullptr)
+            {
+                moves++;
                 return true;
+            }
 
             if (newPosVect.getXCord() == 0 && newPosVect.getYCord() == 1 && gameboard.chessboard[newPosY][newPosX] == nullptr)
+            {
+                moves++;
                 return true;
+            }
         }
 
         if (this->color == BLACK)
         {
             //taking the opponent
             if ((newPosVect.getXCord() == -1 || newPosVect.getXCord() == 1) && newPosVect.getYCord() == -1 && gameboard.chessboard[newPosY][newPosX]->getColor() == WHITE)
+            {
+                moves++;
                 return true;
+            }
 
             //first move
             if (moves == 0 && newPosVect.getXCord() == 0 && newPosVect.getYCord() == -2 && gameboard.chessboard[newPosY][newPosX] == nullptr)
+            {
+                moves++;
                 return true;
+            }
 
             //one step forward
             if (newPosVect.getXCord() == 0 && newPosVect.getYCord() == -1 && gameboard.chessboard[newPosY][newPosX] == nullptr)
+            {
+                moves++;
                 return true;
+            }
         }
 
         return false;

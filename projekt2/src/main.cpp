@@ -9,16 +9,23 @@
 using namespace std;
 /*
 TODO:
-TEMPLATE
 POLYMORPHISM
 */
+
+template <typename T>
+struct pairColRow
+{
+	T col;
+	T row;
+};
 
 int main(int argc, char* argv[])
 {
 	Board gameboard = Board();
 	Piece *tmp;
-	int src_col, src_row;
-	int dest_col, dest_row;
+	pairColRow<int> src;
+	pairColRow<int> dest;
+	
 	bool playerColor = WHITE;
 	vector<string> moves;
 	bool saveData = true;
@@ -54,29 +61,30 @@ int main(int argc, char* argv[])
 		gameboard.drawBoard();
 
 		cout << "Podaj zrodlowa kolumne:\n";
-		cin >> src_col;
+		cin >> src.col;
 		cin.clear();
 		cin.ignore(10000, '\n');
 		
-		if(src_col==-1)
+		//end of the game
+		if(src.col==-1)
 			break;
 
 		cout << "Podaj zrodlowy wiersz:\n";
-		cin >> src_row;
+		cin >> src.row;
 		cin.clear();
 		cin.ignore(10000, '\n');
 
 		cout << "Podaj docelowa kolumne:\n";
-		cin >> dest_col;
+		cin >> dest.col;
 		cin.clear();
 		cin.ignore(10000, '\n');
 
 		cout << "Podaj docelowy wiersz:\n";
-		cin >> dest_row;
+		cin >> dest.row;
 		cin.clear();
 		cin.ignore(10000, '\n');
 
-		tmp = gameboard.getPieceAt(src_col, src_row);
+		tmp = gameboard.getPieceAt(src.col, src.row);
 		if (tmp == nullptr)
 		{
 			system("clear");
@@ -92,7 +100,7 @@ int main(int argc, char* argv[])
 			continue;
 		}
 
-		if (gameboard.move(Point(src_col, src_row), Point(dest_col, dest_row)) == -1)
+		if (gameboard.move(Point(src.col, src.row), Point(dest.col, dest.row)) == -1)
 		{
 			system("clear");
 			cerr << "blad: nieprawidlowy ruch" << endl;
@@ -100,7 +108,7 @@ int main(int argc, char* argv[])
 			continue;
 		}
 
-		moves.push_back(to_string(playerColor) + " " + to_string(src_col) + ":" + to_string(src_row) + " -> " + to_string(dest_col) + ":" + to_string(dest_row));
+		moves.push_back(to_string(playerColor) + " " + to_string(src.col) + ":" + to_string(src.row) + " -> " + to_string(dest.col) + ":" + to_string(dest.row));
 		playerColor = !playerColor;
 	}
 

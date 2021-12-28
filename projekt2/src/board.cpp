@@ -117,7 +117,7 @@ int Board::move(Point src, Point dest)
         return -1;
 
     if (isMoveVaild(dest, chessboard[srcY][srcX]->getColor()) == false)
-        return false;
+        return -1;
     
     Point vect=dest-src;
     if (chessboard[srcY][srcX]->isMoveValid(*this,src,vect)==0)

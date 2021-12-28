@@ -37,8 +37,8 @@ Board::Board()
     //spawn bishops
     chessboard[7][c] = new Piece(c, 7, BLACK, BISHOP);
     chessboard[7][f] = new Piece(f, 7, BLACK, BISHOP);
-    chessboard[0][c] = new Piece(c, 7, WHITE, BISHOP);
-    chessboard[0][f] = new Piece(f, 7, WHITE, BISHOP);
+    chessboard[0][c] = new Piece(c, 0, WHITE, BISHOP);
+    chessboard[0][f] = new Piece(f, 0, WHITE, BISHOP);
 
     //spawn queens
     chessboard[7][d] = new Piece(d, 7, BLACK, QUEEN);
@@ -68,8 +68,7 @@ void Board::drawBoard()
     {
         cout << i << " ";
     }
-    cout << endl
-         << endl;
+    cout << endl;
 
     for (int i = 0; i < 8; i++)
     {
@@ -79,8 +78,16 @@ void Board::drawBoard()
                 cout << chessboard[i][j]->getSymbol() << " ";
             else
                 cout << "  ";
+        cout << " " << i ;
         cout << endl;
     }
+
+    cout << "   ";
+    for (int i = 0; i < 8; i++)
+    {
+        cout << i << " ";
+    }
+    cout << endl;
 }
 
 bool Board::isMoveVaild(Point pos, bool color)
@@ -108,6 +115,9 @@ int Board::move(Point src, Point dest)
 
     if (chessboard[srcY][srcX]==nullptr)
         return -1;
+
+    if (isMoveVaild(dest, chessboard[srcY][srcX]->getColor()) == false)
+        return false;
     
     Point vect=dest-src;
     if (chessboard[srcY][srcX]->isMoveValid(*this,src,vect)==0)
@@ -128,6 +138,15 @@ int Board::move(Point src, Point dest)
 
 Piece* Board::getPieceAt(int X, int Y)
 {
+    if (X > 7 || X < 0 || Y > 7 || Y < 0)
+        return nullptr;
+    return chessboard[Y][X];
+}
+
+Piece* Board::getPieceAt(Point pos)
+{
+    int X=pos.getXCord();
+    int Y=pos.getYCord();
     if (X > 7 || X < 0 || Y > 7 || Y < 0)
         return nullptr;
     return chessboard[Y][X];

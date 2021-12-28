@@ -22,7 +22,6 @@ Piece::Piece(int XCord, int YCord, bool color, Figure figureType) : Point(XCord,
     case BISHOP:
         this->symbol = this->color ? "♗" : "♝";
         break;
-
     case KING:
         this->symbol = this->color ? "♔" : "♚";
         break;
@@ -63,16 +62,14 @@ void Piece::setState(bool state)
     this->state = state;
 }
 
-
 bool Piece::isMoveValid(Board &gameboard, Point oldPos, Point newPosVect)
 {
-    /* int newPosX = this->Xcord + newPosVect.getXCord(); */
-    /* int newPosY = this->Ycord + newPosVect.getYCord(); */
+    /* int newPosX = oldPosX + newPosVect.getXCord(); */
+    /* int newPosY = oldPosY + newPosVect.getYCord(); */
     int newPosX = oldPos.getXCord() + newPosVect.getXCord();
     int newPosY = oldPos.getYCord() + newPosVect.getYCord();
-
-    if (gameboard.isMoveVaild(Point(newPosX,newPosY), this->color) == false)
-        return false;
+    int oldPosX = oldPos.getXCord();
+    int oldPosY = oldPos.getYCord();
 
     //no movement
     if (newPosVect.getXCord() == 0 && newPosVect.getYCord() == 0)
@@ -85,10 +82,10 @@ bool Piece::isMoveValid(Board &gameboard, Point oldPos, Point newPosVect)
             if ((newPosVect.getXCord() == -1 || newPosVect.getXCord() == 1) && newPosVect.getYCord() == 1 && gameboard.chessboard[newPosY][newPosX]->getColor() == BLACK)
                 return true;
 
-            if (moves == 0 && newPosVect.getXCord() == 0 && newPosVect.getYCord() == 2 && gameboard.chessboard[newPosY][newPosX]==nullptr)
+            if (moves == 0 && newPosVect.getXCord() == 0 && newPosVect.getYCord() == 2 && gameboard.chessboard[newPosY][newPosX] == nullptr)
                 return true;
 
-            if (newPosVect.getXCord() == 0 && newPosVect.getYCord() == 1 && gameboard.chessboard[newPosY][newPosX]==nullptr)
+            if (newPosVect.getXCord() == 0 && newPosVect.getYCord() == 1 && gameboard.chessboard[newPosY][newPosX] == nullptr)
                 return true;
         }
 
@@ -103,7 +100,7 @@ bool Piece::isMoveValid(Board &gameboard, Point oldPos, Point newPosVect)
                 return true;
 
             //one step forward
-            if (newPosVect.getXCord() == 0 && newPosVect.getYCord() == -1 && gameboard.chessboard[newPosY][newPosX] == nullptr) 
+            if (newPosVect.getXCord() == 0 && newPosVect.getYCord() == -1 && gameboard.chessboard[newPosY][newPosX] == nullptr)
                 return true;
         }
 
@@ -112,6 +109,7 @@ bool Piece::isMoveValid(Board &gameboard, Point oldPos, Point newPosVect)
 
     if (this->figureType == ROOK || this->figureType == QUEEN)
     {
+        //if its rook and its not moving straight
         if (this->figureType == ROOK && newPosVect.getXCord() != 0 && newPosVect.getYCord() != 0)
             return false;
 
@@ -119,9 +117,9 @@ bool Piece::isMoveValid(Board &gameboard, Point oldPos, Point newPosVect)
         if (newPosVect.getXCord() == 0)
         {
             //up
-            if (newPosY > this->getYCord())
+            if (newPosY > oldPosY)
             {
-                for (int y = this->getYCord() + 1; y < newPosY; y++)
+                for (int y = oldPosY + 1; y < newPosY; y++)
                 {
                     if (gameboard.chessboard[y][newPosX] != nullptr)
                         return false;
@@ -130,9 +128,9 @@ bool Piece::isMoveValid(Board &gameboard, Point oldPos, Point newPosVect)
             }
 
             //down
-            if (newPosY < this->getYCord())
+            if (newPosY < oldPosY)
             {
-                for (int y = this->getYCord() - 1; y > newPosY; y--)
+                for (int y = oldPosY - 1; y > newPosY; y--)
                 {
                     if (gameboard.chessboard[y][newPosX] != nullptr)
                         return false;
@@ -145,9 +143,9 @@ bool Piece::isMoveValid(Board &gameboard, Point oldPos, Point newPosVect)
         if (newPosVect.getYCord() == 0)
         {
             //right
-            if (newPosX > this->getXCord())
+            if (newPosX > oldPosX)
             {
-                for (int x = this->getXCord() + 1; x < newPosX; x++)
+                for (int x = oldPosX + 1; x < newPosX; x++)
                 {
                     if (gameboard.chessboard[newPosY][x] != nullptr)
                         return false;
@@ -156,9 +154,9 @@ bool Piece::isMoveValid(Board &gameboard, Point oldPos, Point newPosVect)
             }
 
             //left
-            if (newPosX < this->getYCord())
+            if (newPosX < oldPosY)
             {
-                for (int x = this->getYCord() - 1; x > newPosX; x--)
+                for (int x = oldPosY - 1; x > newPosX; x--)
                 {
                     if (gameboard.chessboard[newPosY][x] != nullptr)
                         return false;
@@ -184,22 +182,22 @@ bool Piece::isMoveValid(Board &gameboard, Point oldPos, Point newPosVect)
         //   X
         //  X
         // X
-        if (oldPos.getXCord() == newPosVect.getXCord())
+        if (newPosVect.getYCord() == -newPosVect.getXCord())
         {
             //down
-            if (newPosX < this->Xcord)
+            if (newPosX < oldPosX)
             {
-                for (int x = this->Xcord; x > newPosX; x--)
-                    if (gameboard.chessboard[this->Ycord - (this->Xcord - x)][x] != nullptr)
+                for (int x = oldPosX - 1; x > newPosX; x--)
+                    if (gameboard.chessboard[oldPosY + (oldPosX - x)][x] != nullptr)
                         return false;
                 return true;
             }
 
             //up
-            if (newPosX > this->Xcord)
+            if (newPosX > oldPosX)
             {
-                for (int x = this->Xcord; x < newPosX; x++)
-                    if (gameboard.chessboard[this->Ycord + (this->Xcord - x)][x] != nullptr)
+                for (int x = oldPosX + 1; x < newPosX; x++)
+                    if (gameboard.chessboard[oldPosY - (oldPosX - x)][x] != nullptr)
                         return false;
                 return true;
             }
@@ -208,22 +206,22 @@ bool Piece::isMoveValid(Board &gameboard, Point oldPos, Point newPosVect)
         // X
         //  X
         //   X
-        if (oldPos.getXCord() == -newPosVect.getXCord())
+        if (newPosVect.getYCord() == newPosVect.getXCord())
         {
             //down
-            if (newPosX < this->Xcord)
+            if (newPosX < oldPosX)
             {
-                for (int x = this->Xcord; x < newPosX; x++)
-                    if (gameboard.chessboard[this->Ycord - (this->Xcord - x)][x] != nullptr)
+                for (int x = oldPosX + 1; x < newPosX; x++)
+                    if (gameboard.chessboard[oldPosY - (oldPosX - x)][x] != nullptr)
                         return false;
                 return true;
             }
 
             //up
-            if (newPosX > this->Xcord)
+            if (newPosX > oldPosX)
             {
-                for (int x = this->Xcord; x > newPosX; x--)
-                    if (gameboard.chessboard[this->Ycord + (this->Xcord - x)][x] != nullptr)
+                for (int x = oldPosX - 1; x > newPosX; x--)
+                    if (gameboard.chessboard[oldPosY + (oldPosX - x)][x] != nullptr)
                         return false;
                 return true;
             }
@@ -234,9 +232,9 @@ bool Piece::isMoveValid(Board &gameboard, Point oldPos, Point newPosVect)
 
     if (this->figureType == KING)
     {
-        if ( (newPosVect.getXCord() == 1 || newPosVect.getXCord() == -1) && (newPosVect.getYCord() == 1 || newPosVect.getYCord() == -1) )
+        if ((newPosVect.getXCord() == 1 || newPosVect.getXCord() == -1) && (newPosVect.getYCord() == 1 || newPosVect.getYCord() == -1))
             return true;
     }
-    
+
     return false;
 }

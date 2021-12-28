@@ -45,6 +45,7 @@ class Point
         void setXCord(int Xcord);
         void setYCord(int Ycord);
         friend Point operator+(const Point &lhs, const Point &rhs);
+        friend Point operator-(const Point &lhs, const Point &rhs);
         friend void operator+=(Point &lhs, const Point &rhs);
 };
 
@@ -60,10 +61,11 @@ class Piece : public Point
         Piece(int XCord, int YCord, bool color, Figure figureType);
         bool getColor();
         bool getState();
+        Figure getFigureType();
         void setColor(bool color);
         void setState(bool state);
         std::string getSymbol(); 
-        bool isMoveValid(Board &gameboard, Point newPosVect);
+        bool isMoveValid(Board &gameboard, Point oldPos, Point newPosVect);
 };
 
 class Board
@@ -77,7 +79,8 @@ class Board
         ~Board();
         void drawBoard();
         bool isMoveVaild(Point pos,bool color);
-        void move(Point src, Point dest);
+        int move(Point src, Point dest);
+        Piece* getPieceAt(int X, int Y);
 
     friend class Piece;
 };

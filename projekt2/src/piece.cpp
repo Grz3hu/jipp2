@@ -8,15 +8,15 @@ Piece::Piece(int XCord, int YCord, bool color, Figure figureType) : Point(XCord,
     switch (figureType)
     {
     case PAWN:
-        this->symbol = this->color ? "♟︎" : "♙";
+        this->symbol = this->color ? "♙" : "♟︎";
         break;
 
     case ROOK:
-        this->symbol = this->color ? "♜" : "♖";
+        this->symbol = this->color ? "♖" : "♜";
         break;
 
     case KNIGHT:
-        this->symbol = this->color ? "♞" : "♘";
+        this->symbol = this->color ? "♘" : "♞";
         break;
 
     case BISHOP:
@@ -38,6 +38,16 @@ bool Piece::getColor()
     return this->color;
 }
 
+string Piece::getSymbol()
+{
+    return this->symbol;
+}
+
+Figure Piece::getFigureType()
+{
+    return this->figureType;
+}
+
 bool Piece::getState()
 {
     return this->state;
@@ -53,17 +63,15 @@ void Piece::setState(bool state)
     this->state = state;
 }
 
-string Piece::getSymbol()
-{
-    return this->symbol;
-}
 
-bool Piece::isMoveValid(Board &gameboard, Point newPosVect)
+bool Piece::isMoveValid(Board &gameboard, Point oldPos, Point newPosVect)
 {
-    int newPosX = this->Xcord + newPosVect.getXCord();
-    int newPosY = this->Ycord + newPosVect.getYCord();
+    /* int newPosX = this->Xcord + newPosVect.getXCord(); */
+    /* int newPosY = this->Ycord + newPosVect.getYCord(); */
+    int newPosX = oldPos.getXCord() + newPosVect.getXCord();
+    int newPosY = oldPos.getYCord() + newPosVect.getYCord();
 
-    if (gameboard.isMoveVaild((Point)(*this) + newPosVect, this->color) == false)
+    if (gameboard.isMoveVaild(Point(newPosX,newPosY), this->color) == false)
         return false;
 
     //no movement
@@ -77,10 +85,10 @@ bool Piece::isMoveValid(Board &gameboard, Point newPosVect)
             if ((newPosVect.getXCord() == -1 || newPosVect.getXCord() == 1) && newPosVect.getYCord() == 1 && gameboard.chessboard[newPosY][newPosX]->getColor() == BLACK)
                 return true;
 
-            if (moves == 0 && newPosVect.getXCord() == 0 && newPosVect.getYCord() == 2)
+            if (moves == 0 && newPosVect.getXCord() == 0 && newPosVect.getYCord() == 2 && gameboard.chessboard[newPosY][newPosX]==nullptr)
                 return true;
 
-            if (newPosVect.getXCord() == 0 && newPosVect.getYCord() == 1)
+            if (newPosVect.getXCord() == 0 && newPosVect.getYCord() == 1 && gameboard.chessboard[newPosY][newPosX]==nullptr)
                 return true;
         }
 
@@ -95,7 +103,7 @@ bool Piece::isMoveValid(Board &gameboard, Point newPosVect)
                 return true;
 
             //one step forward
-            if (newPosVect.getXCord() == 0 && newPosVect.getYCord() == -1 && gameboard.chessboard[newPosY][newPosX] == nullptr)
+            if (newPosVect.getXCord() == 0 && newPosVect.getYCord() == -1 && gameboard.chessboard[newPosY][newPosX] == nullptr) 
                 return true;
         }
 
@@ -176,7 +184,7 @@ bool Piece::isMoveValid(Board &gameboard, Point newPosVect)
         //   X
         //  X
         // X
-        if (newPosVect.getXCord() == newPosVect.getXCord())
+        if (oldPos.getXCord() == newPosVect.getXCord())
         {
             //down
             if (newPosX < this->Xcord)
@@ -200,7 +208,7 @@ bool Piece::isMoveValid(Board &gameboard, Point newPosVect)
         // X
         //  X
         //   X
-        if (newPosVect.getXCord() == -newPosVect.getXCord())
+        if (oldPos.getXCord() == -newPosVect.getXCord())
         {
             //down
             if (newPosX < this->Xcord)
@@ -226,19 +234,8 @@ bool Piece::isMoveValid(Board &gameboard, Point newPosVect)
 
     if (this->figureType == KING)
     {
-        int newPosX = this->Xcord + newPosVect.getXCord();
-        int newPosY = this->Ycord + newPosVect.getYCord();
-
-        if (gameboard.isMoveVaild((Point)(*this) + newPosVect, this->color) == false)
-            return false;
-
-        if (newPosVect.getXCord() == 0 && newPosVect.getYCord() == 0)
-            return false;
-
-        if (newPosVect.getXCord() <= 1 && newPosVect.getXCord() >= -1 && newPosVect.getYCord() <= 1 && newPosVect.getYCord() >= -1)
+        if ( (newPosVect.getXCord() == 1 || newPosVect.getXCord() == -1) && (newPosVect.getYCord() == 1 || newPosVect.getYCord() == -1) )
             return true;
-
-        return false;
     }
     
     return false;

@@ -1,0 +1,12 @@
+*wskaźniki
+*klasy
+*dziedziczenie
+*polimorfizm
+*przeciążanie metod
+*przeciążanie operatorów
+*konstruktory, destruktory
+*obsługę błędów
+kontenery
+szablon
+„bazę danych” - plik też jest bazą danych
+parametry wywoływania programu

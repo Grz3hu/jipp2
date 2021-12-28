@@ -18,8 +18,8 @@ Board::Board()
     //spawn pawns
     for (int i = a; i <= h; i++)
     {
-        chessboard[1][i] = new Piece(i, 1, WHITE, PAWN);
         chessboard[6][i] = new Piece(i, 6, BLACK, PAWN);
+        chessboard[1][i] = new Piece(i, 1, WHITE, PAWN);
     }
 
     //spawn rooks
@@ -66,14 +66,14 @@ void Board::drawBoard()
     cout << "   ";
     for (int i = 0; i < 8; i++)
     {
-        cout << (char)('a' + i) << " ";
+        cout << i << " ";
     }
     cout << endl
          << endl;
 
     for (int i = 0; i < 8; i++)
     {
-        cout << 8 - i << "  ";
+        cout << i << "  ";
         for (int j = a; j <= h; j++)
             if (chessboard[i][j] != nullptr)
                 cout << chessboard[i][j]->getSymbol() << " ";
@@ -89,26 +89,46 @@ bool Board::isMoveVaild(Point pos, bool color)
     int newPosY = pos.getYCord();
     //point not on the board
     if (!(newPosX >= 0 && newPosX <= 7 && newPosY >= 0 && newPosY <= 7))
-        return 0;
+        return false;
 
     //allay on the new point
-    if (chessboard[newPosY][newPosX]->getColor() == color)
-        return 0;
+    if (chessboard[newPosY][newPosX]!=nullptr && chessboard[newPosY][newPosX]->getColor() == color)
+        return false;
         
-    return 1;
+    return true;
 }
 
-void Board::move(Point src, Point dest)
+int Board::move(Point src, Point dest)
 {
-    if (chessboard[dest.getYCord()][dest.getXCord()] != nullptr)
+    int srcX,srcY,destX,destY;
+    srcY=src.getYCord();
+    srcX=src.getXCord();
+    destY=dest.getYCord();
+    destX=dest.getXCord();
+
+    if (chessboard[srcY][srcX]==nullptr)
+        return -1;
+    
+    Point vect=dest-src;
+    if (chessboard[srcY][srcX]->isMoveValid(*this,src,vect)==0)
+        return -1;
+
+    if (chessboard[destY][destX] != nullptr)
     {
-        chessboard[dest.getYCord()][dest.getXCord()]->setState(DEAD);
-        delete chessboard[dest.getYCord()][dest.getXCord()];
-        chessboard[dest.getYCord()][dest.getXCord()] = nullptr;
+        chessboard[destY][destX]->setState(DEAD);
+        delete chessboard[destY][destX];
+        chessboard[destY][destX] = nullptr;
     }
 
-    chessboard[dest.getYCord()][dest.getXCord()] = chessboard[src.getYCord()][src.getXCord()];
-    chessboard[src.getYCord()][src.getXCord()]->setXCord(dest.getXCord());
-    chessboard[src.getYCord()][src.getXCord()]->setYCord(dest.getYCord());
-    chessboard[src.getYCord()][src.getXCord()] = nullptr;
+    chessboard[destY][destX] = chessboard[srcY][srcX];
+    chessboard[srcY][srcX] = nullptr;
+    
+    return 0;
+}
+
+Piece* Board::getPieceAt(int X, int Y)
+{
+    if (X > 7 || X < 0 || Y > 7 || Y < 0)
+        return nullptr;
+    return chessboard[Y][X];
 }

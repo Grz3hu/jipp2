@@ -3,8 +3,8 @@
 //Point definitions
 Point::Point(int Xcord, int Ycord) : Xcord(Xcord), Ycord(Ycord)
 {
-    this->Xcord = Xcord % 8;
-    this->Ycord = Ycord % 8;
+    this->Xcord = Xcord;
+    this->Ycord = Ycord;
 }
 
 int Point::getXCord()
@@ -30,6 +30,11 @@ void Point::setYCord(int YCord)
 Point operator+(const Point &lhs, const Point &rhs)
 {
     return Point(lhs.Xcord + rhs.Xcord, lhs.Ycord + rhs.Ycord);
+}
+
+Point operator-(const Point &lhs, const Point &rhs)
+{
+    return Point(lhs.Xcord - rhs.Xcord, lhs.Ycord - rhs.Ycord);
 }
 
 void operator+=(Point &lhs, const Point &rhs)

@@ -2,7 +2,7 @@
 
 int main()
 {
-	cout << maxT<int>(1,2) << endl;
+	cout << maxT(1,2) << endl;
 	cout << minT<int>(1,2) << endl;
 
 	Array<int,3> tmp = Array<int,3>();

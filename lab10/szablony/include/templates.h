@@ -6,7 +6,7 @@
 
 using namespace std;
 
-template <typename T>
+template <typename T=int>
 T maxT(T x, T y)
 {
     return (x > y) ? x : y;

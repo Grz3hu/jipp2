@@ -7,10 +7,6 @@
 #include <string.h>
 
 using namespace std;
-/*
-TODO:
-POLYMORPHISM
-*/
 
 template <typename T>
 struct pairColRow

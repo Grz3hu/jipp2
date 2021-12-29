@@ -25,7 +25,7 @@ class Piece;
 //! An enum.
 /*! Chess figures */
 enum Figure {
-    PAWN,
+    PAWN, //pawn is separate class 
     ROOK,
     KNIGHT,
     BISHOP,
@@ -121,7 +121,6 @@ protected:
     bool state = ALIVE;/**< variable holding piece state (DEAD or ALIVE) */
     std::string symbol = " ";/**< variable holding piece symbol (in unicode)*/
     Figure figureType;/**< variable holding piece type (check figure enum for possible types)*/
-    unsigned long long int moves = 0;/**< variable holding number of piece moves (used only when figureType is PAWN)*/
 
 public:
     /**
@@ -184,7 +183,31 @@ public:
     * @param newPosVect VECTOR that will be added to oldPos
     * @return true if move is valid, false if not
     */
-    bool isMoveValid(Board &gameboard, Point oldPos, Point newPosVect);
+    virtual bool isMoveValid(Board &gameboard, Point oldPos, Point newPosVect);
+};
+
+class Pawn : public Piece{
+    private:
+        unsigned long long int moves = 0;/**< variable holding number of piece moves */
+    public:
+        /**
+        * Constructor setting class member values
+        *
+        * @param Xcord new Xcord value
+        * @param Ycord new Ycord value
+        * @param color new color value
+        */
+        Pawn(int XCord, int YCord, bool color);
+
+        /**
+        * Setter of the color member
+        *
+        * @param gameboard new state value
+        * @param oldPos where the piece is
+        * @param newPosVect VECTOR that will be added to oldPos
+        * @return true if move is valid, false if not
+        */
+        bool isMoveValid(Board &gameboard, Point oldPos, Point newPosVect);
 };
 
 //A class representing chess board
@@ -244,6 +267,7 @@ public:
 
     //allows piece to access chessboard
     friend class Piece;
+    friend class Pawn;
 };
 
 #endif

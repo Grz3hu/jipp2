@@ -18,8 +18,9 @@ Board::Board()
     //spawn pawns
     for (int i = a; i <= h; i++)
     {
-        chessboard[6][i] = new Piece(i, 6, BLACK, PAWN);
-        chessboard[1][i] = new Piece(i, 1, WHITE, PAWN);
+        //polymorphism
+        chessboard[6][i] = new Pawn(i, 6, BLACK);
+        chessboard[1][i] = new Pawn(i, 1, WHITE);
     }
 
     //spawn rooks

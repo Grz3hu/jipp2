@@ -29,17 +29,20 @@ int main(int argc, char *argv[])
 	bool saveData = true;
 	bool continueGame = false;
 	if (argc >= 2)
-	{
-		if (strcmp(argv[1], "-nosave") == 0)
-			saveData = false;
-		if (strcmp(argv[1], "-continue") == 0)
-			continueGame = true;
-	}
+		for (int i = 1; i < argc; i++)
+		{
+			if (strcmp(argv[i], "-nosave") == 0)
+				saveData = false;
+			if (strcmp(argv[i], "-continue") == 0)
+				continueGame = true;
+		}
 
 	fstream historyFile;
-	if (saveData)
+	if (saveData || continueGame)
 	{
-		historyFile.open("movesHistory.txt");
+		historyFile.open("movesHistory.txt", ios::out | ios::app); //create file if it doesnt exist
+		historyFile.close();
+		historyFile.open("movesHistory.txt", fstream::in);
 		if (!historyFile.is_open())
 			exit(EXIT_FAILURE);
 	}
@@ -66,7 +69,7 @@ int main(int argc, char *argv[])
 			if (!getline(historyFile, movesStr))
 			{
 				continueGame = false;
-				break;
+				continue;
 			}
 			stringstream ss(movesStr);
 
@@ -76,17 +79,17 @@ int main(int argc, char *argv[])
 			if (!getline(ss, playerColorStr, ','))
 			{
 				continueGame = false;
-				break;
+				continue;
 			}
 			if (!getline(ss, srcStr, ','))
 			{
 				continueGame = false;
-				break;
+				continue;
 			}
 			if (!getline(ss, destStr, ','))
 			{
 				continueGame = false;
-				break;
+				continue;
 			}
 			src.col = srcStr[0] - 48;
 			src.row = srcStr[2] - 48;
@@ -144,12 +147,15 @@ int main(int argc, char *argv[])
 			continue;
 		}
 
-		moves.push_back(to_string(playerColor) + "," + to_string(src.col) + ":" + to_string(src.row) + "," + to_string(dest.col) + ":" + to_string(dest.row));
+		if (!continueGame)
+			moves.push_back(to_string(playerColor) + "," + to_string(src.col) + ":" + to_string(src.row) + "," + to_string(dest.col) + ":" + to_string(dest.row));
 		playerColor = !playerColor;
 	}
 
 	if (saveData)
 	{
+		historyFile.close();
+		historyFile.open("movesHistory.txt", fstream::out | fstream::app);
 		for (string move : moves)
 			historyFile << move << endl;
 		historyFile.close();

@@ -7,9 +7,9 @@ Piece::Piece(int XCord, int YCord, bool color, Figure figureType) : Point(XCord,
 {
     switch (figureType)
     {
-    /* case PAWN: */
-    /*     this->symbol = this->color ? "♙" : "♟︎"; */
-    /*     break; */
+        /* case PAWN: */
+        /*     this->symbol = this->color ? "♙" : "♟︎"; */
+        /*     break; */
 
     case ROOK:
         this->symbol = this->color ? "♖" : "♜";
@@ -64,8 +64,6 @@ void Piece::setState(bool state)
 
 bool Piece::isMoveValid(Board &gameboard, Point oldPos, Point newPosVect)
 {
-    /* int newPosX = oldPosX + newPosVect.getXCord(); */
-    /* int newPosY = oldPosY + newPosVect.getYCord(); */
     int newPosX = oldPos.getXCord() + newPosVect.getXCord();
     int newPosY = oldPos.getYCord() + newPosVect.getYCord();
     int oldPosX = oldPos.getXCord();
@@ -74,7 +72,6 @@ bool Piece::isMoveValid(Board &gameboard, Point oldPos, Point newPosVect)
     //no movement
     if (newPosVect.getXCord() == 0 && newPosVect.getYCord() == 0)
         return false;
-
 
     if (this->figureType == ROOK || this->figureType == QUEEN)
     {
@@ -215,8 +212,6 @@ Pawn::Pawn(int XCord, int YCord, bool color) : Piece(XCord, YCord, color, PAWN)
 
 bool Pawn::isMoveValid(Board &gameboard, Point oldPos, Point newPosVect)
 {
-    /* int newPosX = oldPosX + newPosVect.getXCord(); */
-    /* int newPosY = oldPosY + newPosVect.getYCord(); */
     int newPosX = oldPos.getXCord() + newPosVect.getXCord();
     int newPosY = oldPos.getYCord() + newPosVect.getYCord();
     int oldPosX = oldPos.getXCord();
@@ -228,7 +223,7 @@ bool Pawn::isMoveValid(Board &gameboard, Point oldPos, Point newPosVect)
 
     if (this->color == WHITE)
     {
-        if ((newPosVect.getXCord() == -1 || newPosVect.getXCord() == 1) && newPosVect.getYCord() == 1 && gameboard.chessboard[newPosY][newPosX]->getColor() == BLACK)
+        if ((newPosVect.getXCord() == -1 || newPosVect.getXCord() == 1) && newPosVect.getYCord() == 1 && gameboard.chessboard[newPosY][newPosX]!=nullptr && gameboard.chessboard[newPosY][newPosX]->getColor() == BLACK)
         {
             moves++;
             return true;
@@ -250,7 +245,7 @@ bool Pawn::isMoveValid(Board &gameboard, Point oldPos, Point newPosVect)
     if (this->color == BLACK)
     {
         //taking the opponent
-        if ((newPosVect.getXCord() == -1 || newPosVect.getXCord() == 1) && newPosVect.getYCord() == -1 && gameboard.chessboard[newPosY][newPosX]->getColor() == WHITE)
+        if ((newPosVect.getXCord() == -1 || newPosVect.getXCord() == 1) && newPosVect.getYCord() == -1 && gameboard.chessboard[newPosY][newPosX]!=nullptr && gameboard.chessboard[newPosY][newPosX]->getColor() == WHITE)
         {
             moves++;
             return true;

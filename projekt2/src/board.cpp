@@ -79,7 +79,7 @@ void Board::drawBoard()
                 cout << chessboard[i][j]->getSymbol() << " ";
             else
                 cout << "  ";
-        cout << " " << i ;
+        cout << " " << i;
         cout << endl;
     }
 
@@ -100,28 +100,28 @@ bool Board::isMoveVaild(Point pos, bool color)
         return false;
 
     //allay on the new point
-    if (chessboard[newPosY][newPosX]!=nullptr && chessboard[newPosY][newPosX]->getColor() == color)
+    if (chessboard[newPosY][newPosX] != nullptr && chessboard[newPosY][newPosX]->getColor() == color)
         return false;
-        
+
     return true;
 }
 
 int Board::move(Point src, Point dest)
 {
-    int srcX,srcY,destX,destY;
-    srcY=src.getYCord();
-    srcX=src.getXCord();
-    destY=dest.getYCord();
-    destX=dest.getXCord();
+    int srcX, srcY, destX, destY;
+    srcY = src.getYCord();
+    srcX = src.getXCord();
+    destY = dest.getYCord();
+    destX = dest.getXCord();
 
-    if (chessboard[srcY][srcX]==nullptr)
+    if (chessboard[srcY][srcX] == nullptr)
         return -1;
 
     if (isMoveVaild(dest, chessboard[srcY][srcX]->getColor()) == false)
         return -1;
-    
-    Point vect=dest-src;
-    if (chessboard[srcY][srcX]->isMoveValid(*this,src,vect)==0)
+
+    Point vect = dest - src;
+    if (chessboard[srcY][srcX]->isMoveValid(*this, src, vect) == 0)
         return -1;
 
     if (chessboard[destY][destX] != nullptr)
@@ -133,21 +133,23 @@ int Board::move(Point src, Point dest)
 
     chessboard[destY][destX] = chessboard[srcY][srcX];
     chessboard[srcY][srcX] = nullptr;
-    
+    chessboard[destY][destX]->setXCord(destX);
+    chessboard[destY][destX]->setYCord(destY);
+
     return 0;
 }
 
-Piece* Board::getPieceAt(int X, int Y)
+Piece *Board::getPieceAt(int X, int Y)
 {
     if (X > 7 || X < 0 || Y > 7 || Y < 0)
         return nullptr;
     return chessboard[Y][X];
 }
 
-Piece* Board::getPieceAt(Point pos)
+Piece *Board::getPieceAt(Point pos)
 {
-    int X=pos.getXCord();
-    int Y=pos.getYCord();
+    int X = pos.getXCord();
+    int Y = pos.getYCord();
     if (X > 7 || X < 0 || Y > 7 || Y < 0)
         return nullptr;
     return chessboard[Y][X];

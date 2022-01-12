@@ -1,6 +1,6 @@
 #include "chess.h"
 
-//Point definitions
+//Point definitions 
 Point::Point(int Xcord, int Ycord) : Xcord(Xcord), Ycord(Ycord)
 {
     this->Xcord = Xcord;
